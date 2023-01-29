@@ -65,77 +65,93 @@ const New = () => {
                     <div className="row">
                         <div className="col-md-6">
                             <label htmlFor="full_name">name</label>
-                            <input type="text" name="full_name" id="full_name" className='w-100' onChange={getValue}/>
+                            <input type="text" name="full_name" id="full_name" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="telep1">Tele</label>
-                            <input type='tel' name="telep1" id="telep1" className='w-100'/>
+                            <input type='tel' name="telep1" id="telep1" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="telep2">tel2</label>
-                            <input type="tel" name="telep2" id="telep2" className='w-100'/>
+                            <input type="tel" name="telep2" id="telep2" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="date1">date</label>
-                            <input type='date' name="date1" id="date1" className='w-100'/>
+                            <input type='date' name="date1" id="date1" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="date2">date</label>
-                            <input type='date' name="date2" id="date2" className='w-100'/>
+                            <input type='date' name="date2" id="date2" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="city1">بلد الإقامة</label>
-                            <select className='w-100' name='city1' id='city1'></select>
+                            <select className='w-100 form-select form-select-sm' name='city1' id='city1'>
+                                 <option value="1">One</option>
+                                 <option value="2">Two</option>
+                                 <option value="3">Three</option>
+                            </select>
                         </div>
                         <div className="col-md-8">
                             <label htmlFor="nationalId">الرقم القومي</label>
-                            <input type='number' name="nationalId" id="nationalId" className='w-100'/>
+                            <input type='number' name="nationalId" id="nationalId" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-8">
                             <label htmlFor="nationalImg">صورة بطاقة الرقم القومي</label>
-                            <input type='file' name="nationalImg" id="nationalImg" className='w-100'/>
+                            <input type='file' name="nationalImg" id="nationalImg" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="building_number">رقم العقار</label>
-                            <input type='number' name="building_number" id="building_number" className='w-100' onChange={getValue}/>
+                            <input type='number' name="building_number" id="building_number" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="installment_number">رقم الصك</label>
-                            <input type='number' name="installment_number" id="installment_number" className='w-100' onChange={getValue}/>
+                            <input type='number' name="installment_number" id="installment_number" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-8">
                             <label htmlFor="installment_image">صورةالصك</label>
-                            <input type='file' name="installment_image" id="installment_image" className='w-100' onChange={getValue}/>
+                            <input type='file' name="installment_image" id="installment_image" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-8">
                             <label htmlFor="construction_licence"> صورة الرخصة</label>
-                            <input type='file' name="construction_licence" id="construction_licence" className='w-100' onChange={getValue}/>
+                            <input type='file' name="construction_licence" id="construction_licence" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-8">
                             <label htmlFor="docFile">ملف الكروكي</label>
-                            <input type='file' name="docFile" id="docFile" className='w-100'/>
+                            <input type='file' name="docFile" id="docFile" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-9">
                             <label htmlFor="building_images">صور العقار</label>
-                            <input type='file' name="building_images" id="building_images" className='w-100' onChange={getValue}/>
+                            <input type='file' name="building_images" id="building_images" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="region">المنطقة</label>
-                            <select className='w-100' name='region' id='region' onChange={getValue}></select>
+                            <select className='w-100 form-select form-select-sm' name='region' id='region' onChange={getValue}>
+                                 <option value="1">One</option>
+                                 <option value="2">Two</option>
+                                 <option value="3">Three</option>
+                            </select>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="city">المدينة</label>
-                            <select className='w-100' name='city' id='city' onChange={getValue}></select>
+                            <select className='w-100 form-select form-select-sm' name='city' id='city' onChange={getValue}>
+                                <option value="1">One</option>
+                                 <option value="2">Two</option>
+                                 <option value="3">Three</option>
+                            </select>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="neighborhood">الحي</label>
-                            <select className='w-100' name='neighborhood' id='neighborhood' onChange={getValue}></select>
+                            <select className='w-100 form-select form-select-sm' name='neighborhood' id='neighborhood' onChange={getValue}>
+                                 <option value="1">One</option>
+                                 <option value="2">Two</option>
+                                 <option value="3">Three</option>
+                            </select>
                         </div>
                         <div className="col-md-12">
                             <label htmlFor="address">العنوان التفصيلي</label>
-                            <input type="text" name="address" id="address" onChange={getValue}/>
+                            <input type="text" name="address" id="address" onChange={getValue} className='form-control'/>
                         </div>
-                        <div className="col-md-8 w-50" style={{height:'350px'}}>
+                        <div className="col-md-8 w-50 mb-2" style={{height:'350px'}}>
                         <GoogleMapReact 
           bootstrapURLKeys={{key: 'AIzaSyCjx0VcQOSzfyAtO--jUTcRIHtwnjT76fQ'}} 
           defaultCenter={coordinates} 
@@ -153,15 +169,15 @@ const New = () => {
                         </div>
                         <div className="col-md-8">
                             <label htmlFor="contracts"> عقود التأجير</label>
-                            <input type='file' name="contracts" id="contracts" className='w-100' onChange={getValue}/>
+                            <input type='file' name="contracts" id="contracts" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="sign">صورة توقيع العميل</label>
-                            <input type='file' name="sign" id="sign" className='w-100'/>
+                            <input type='file' name="sign" id="sign" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="terms_and_conditions">وثيقة الشروط والأحكام</label>
-                            <input type='file' name="terms_and_conditions" id="terms_and_conditions" className='w-100' onChange={getValue}/>
+                            <input type='file' name="terms_and_conditions" id="terms_and_conditions" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-6">
                             <button type="submit" className='w-100 bg-black text-white' onSubmit={submitForm}>إرسال الطلب</button>

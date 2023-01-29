@@ -1,4 +1,4 @@
-import { AddAPhotoOutlined } from '@mui/icons-material'
+import { AddAPhotoOutlined, AddCircleOutlineRounded, BarChart, BarChartOutlined, Business, ExitToAppOutlined, Lock, LockClockRounded, Menu, Person, QuestionMark, Settings, SettingsAccessibility } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import React from 'react'
 
@@ -7,55 +7,57 @@ import React from 'react'
 const Sidebar = () => {
   return (
     <>
-    <div className='sidebar'>
+    <div className='sidebar d-flex flex-column justify-content-between'>
         <ul className="list">
-            <li className='logo'>
-                <AddAPhotoOutlined className='icon'/>
+            <Link to={'/'} style={{textDecoration:'none', color:'white'}}>
+            <li className='listLogo' style={{fontSize:'17px'}}>
+                <Business className='icon'/>
                 <span>قيم عقارك</span>
             </li>
             <li>
+                <BarChartOutlined className='icon'/>
+                <span>الاحصائيات</span>
+            </li>
+            </Link>
+            <li>
                 <Link to={'/new'} style={{textDecoration:'none', color:'white'}}>
-                <AddAPhotoOutlined className='icon'/>
+                <AddCircleOutlineRounded className='icon'/>
                 <span>إضافة طلب</span>
                 </Link>
             </li>
             <Link to={'/list'} style={{textDecoration:'none', color:'white'}}>
             <li>
-                <AddAPhotoOutlined className='icon'/>
+                <Menu className='icon'/>
                 <span>طلباتي</span>
             </li>
             </Link>
+            <Link to={'/details'} style={{textDecoration:'none', color:'white'}}>
             <li>
-                <AddAPhotoOutlined className='icon'/>
+                <Person className='icon'/>
                 <span>الملف الشخصي</span>
             </li>
+            </Link>
+            
             <li>
-                <AddAPhotoOutlined className='icon'/>
+                <Settings className='icon'/>
                 <span>الاعدادات العامة</span>
             </li>
             <li>
-                <AddAPhotoOutlined className='icon'/>
+                <LockClockRounded className='icon'/>
                 <span>اعدادات الأمان</span>
             </li>
-            <li>
-                <AddAPhotoOutlined className='icon'/>
+            <li className='mb-5'>
+                <QuestionMark className='icon'/>
                 <span>الدعم التقني</span>
             </li>
-            <li>
-                <AddAPhotoOutlined className='icon'/>
-                <span>الاحصائيات</span>
-            </li>
-            <li>
-                <AddAPhotoOutlined className='icon'/>
-                <span>الاحصائيات</span>
-            </li>
-            <li>
-                <AddAPhotoOutlined className='icon'/>
-                <span>الاحصائيات</span>
-            </li>
+           
+           
 
         </ul>
-        <p className='logout'>تسجيل الخروج</p>
+        <p>
+        <ExitToAppOutlined className='icon'/>
+        <span>تسجيل الخروج</span>
+        </p>
     </div>
     </>
   )

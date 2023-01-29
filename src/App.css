@@ -11,9 +11,12 @@ html{
 }
 .homecontainer {
   flex: 8;
-  display: flex;  
+  display: flex;
+  margin-right: 190px;
 }
 .sidebar {
+  position: fixed;
+  right: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,6 +25,7 @@ html{
   min-height: 100vh;
   color: white;
   padding: 35px 20px;
+  z-index: 300;
 }
 
 .logo {
@@ -50,14 +54,17 @@ li {
       cursor: pointer;
     }
 .icon {
-      font-size: 11px;
-      color: #7451f8;
+      font-size: 9px;
+      color: white;
       margin-left: 5px;
+  }
+  .iconNav {
+    color: black;
   }
 
 .sum {
   display: flex;
-  flex: 3;
+  flex: 2;
   background-color: #f8f8f8;
   flex-direction: column;
   justify-content: space-between;
@@ -167,6 +174,7 @@ li {
 }
 .newContainer {
   flex: 8;
+  margin-right: 190px;
 }
 .table .image {
   width: 32px;
@@ -187,6 +195,34 @@ li {
   color: goldenrod;
   background-color: rgba(189, 189, 3, 0.103);
 }
-.tableContainer {
+.tableContainer, .detailsContainer {
   flex: 6;
+  margin-right: 190px;
+}
+.right {
+  width: 60%;
+}
+.left {
+  width: 35%;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  padding: 20px 30px;
+}
+.detailsContainer p {
+  font-size: 15px;
+  font-weight: 500;
+}
+.detailsContainer span {
+  color: rgb(146, 144, 144);
+  font-size: 12px;
+}
+.formContainer input, select {
+  margin-bottom: 15px;
+}
+.formContainer label {
+  margin-bottom: 8px;
+  font-weight: 300;
+  font-size: 17px;
+  
 }

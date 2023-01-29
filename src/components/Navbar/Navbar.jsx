@@ -12,18 +12,17 @@ const Navbar = () => {
         </div>
         <div className="items">
         <div className="item">
-            <NotificationsNoneOutlined className='icon'/>
+            <NotificationsNoneOutlined className='iconNav'/>
             <div className="counter">1</div>
           </div>                    
           <div className="item">
             <img src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className='avatar'/>
             <div className='userNa'>
-            <p>AHAHSHHS</p>
-            <span>sdfsf</span>
+            <span>Ahmed</span>
             </div>
           </div>
           <div className="item">
-            <LanguageOutlined className='icon'/> English
+            <LanguageOutlined className='iconNav'/> English
           </div>
         </div>
       </div>
