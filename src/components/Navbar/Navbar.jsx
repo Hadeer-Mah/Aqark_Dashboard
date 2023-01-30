@@ -1,7 +1,7 @@
 import {  LanguageOutlined, NotificationsNoneOutlined, SearchOutlined } from '@mui/icons-material'
 import React from 'react'
 
-const Navbar = () => {
+const Navbar = ({userData}) => {
   return (
     <>
     <div className='navbarTop'>
@@ -18,7 +18,7 @@ const Navbar = () => {
           <div className="item">
             <img src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className='avatar'/>
             <div className='userNa'>
-            <span>Ahmed</span>
+            <span>{userData?.first_name} {userData?.last_name}</span>
             </div>
           </div>
           <div className="item">

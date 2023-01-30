@@ -4,13 +4,13 @@ import React from 'react'
 
 
 
-const Sidebar = () => {
+const Sidebar = ({logout}) => {
   return (
     <>
     <div className='sidebar d-flex flex-column justify-content-between'>
         <ul className="list">
             <Link to={'/'} style={{textDecoration:'none', color:'white'}}>
-            <li className='listLogo'>
+            <li className='listLogo mb-4'>
                 <Business className='icon'/>
                 <div className="d-flex flex-column pt-3">
                     <p style={{fontSize:'17px', marginBottom:'0'}}>قيم عقارك</p>
@@ -58,7 +58,7 @@ const Sidebar = () => {
            
 
         </ul>
-        <p>
+        <p onClick={logout} style={{cursor:'pointer'}}>
         <ExitToAppOutlined className='icon'/>
         <span>تسجيل الخروج</span>
         </p>

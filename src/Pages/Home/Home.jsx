@@ -1,4 +1,4 @@
-import { AddCircle, TrendingDown, TrendingUp } from '@mui/icons-material'
+import { AddCircle, MenuOpen, TrendingDown, TrendingUp } from '@mui/icons-material'
 import React from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Tooltip, XAxis, YAxis } from 'recharts'
 import Navbar from '../../components/Navbar/Navbar'
@@ -7,7 +7,7 @@ import DataTable from '../../components/DataTable/DataTable'
 import { Link } from 'react-router-dom'
 
 
-const Home = () => {
+const Home = ({logout, userData}) => {
   
   const data = [
     { name: "Group A", value: 400 },
@@ -93,7 +93,7 @@ const Home = () => {
   return (
     <>
     <div className='home'>
-      <Sidebar/>
+      <Sidebar logout={logout}/>
       <div className="homecontainer d-flex">
         <div className="sum d-flex flex-column justify-content-between">
           <div>
@@ -127,23 +127,32 @@ const Home = () => {
             <p>تحليل البيانات</p>
             <span>جميع الطلبات</span>
             <p>64318</p>
+            <div className='d-flex justify-content-between'>
             <span>الطلبات القائمة</span>
-            <div class="progress">
+            <span style={{fontSize:"12px"}}>30/100 من الطلبات</span>
+            </div>
+            <div className="progress mb-2">
             <div className="progress-bar bg-info" role="progressbar" aria-label="Info example" style={{width: "30%" }}aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
+            <div className='d-flex justify-content-between'>
             <span>الطلبات المعلقة</span>
-            <div class="progress">
+            <span style={{fontSize:"12px"}}>20/100 من الطلبات</span>
+            </div>            
+            <div className="progress mb-2">
             <div className="progress-bar bg-warning" role="progressbar" aria-label="Warning example" style={{width: "20%" }}aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
+            <div className='d-flex justify-content-between'>
             <span>الطلبات المغلقة</span>
-            <div class="progress">
+            <span style={{fontSize:"12px"}}>40/100 من الطلبات</span>
+            </div>
+            <div className="progress">
             <div className="progress-bar bg-danger" role="progressbar" aria-label="Danger example" style={{width: "40%" }}aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
         </div>
         <div className="visualize">
           <div className="top">
-            <Navbar/>
+            <Navbar userData={userData}/>
           </div>
           <div className="container">
           <div className="center d-flex justify-content-center align-items-center row">
@@ -187,14 +196,18 @@ const Home = () => {
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Bar dataKey="pv" fill="#8884d8" />
-      <Bar dataKey="uv" fill="#82ca9d" />
+      <Bar dataKey="pv" fill="#e86767" />
+      <Bar dataKey="uv" fill="#b6eebd" />
     </BarChart>
             </div>
           </div>
           </div>
           <div className="bottom">
             <div className="container">
+              <div className="d-flex justify-content-between">
+                <p><MenuOpen/>طلباتي</p>
+                <Link to={'/list'} style={{ color:'gray', marginLeft:'10px'}}>رؤية المزيد</Link>
+              </div>
                 <DataTable/>
             </div>
           </div>

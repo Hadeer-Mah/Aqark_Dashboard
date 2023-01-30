@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import GoogleMapReact from 'google-map-react';
-import { DragHandle } from '@mui/icons-material';
+import Navbar from '../../components/Navbar/Navbar';
+import { ReqContext } from '../../contexts/ReqContext';
 
 
-const Details = () => {
+const Details = ({userData}) => {
+  const {userReq} = useContext(ReqContext);
     const [coordinates, setCoordinates] = useState({})
     const [bounds, setBounds] = useState({});
     useEffect(() => {
@@ -26,49 +28,48 @@ const Details = () => {
                     <span>رقم الطلب</span>
                     <p>00000000000</p>
                     <span>رقم الهاتف</span>
-                    <p>00000000000</p>
+                    <p>{userReq.telep1}</p>
                     <span>التاريخ الميلادي</span>
-                    <p>00000000000</p>
+                    <p>{userReq.date1}</p>
                     <span>الرقم القومي</span>
-                    <p>00000000000</p>
+                    <p>{userReq.nationalId}</p>
                     <span>رقم العقار</span>
-                    <p>00000000000</p>
+                    <p>{userReq.building_number}</p>
                     <span>نوع العقار</span>
-                    <p>00000000000</p>
+                    <p></p>
                     <span>ملف رخصة البناء</span>
-                    <p>00000000000</p>
+                    <p></p>
                     <span>ملف الكروكي</span>
-                    <p>00000000000</p>
+                    <p style={{cursor:"pointer", textDecoration: "underline"}}>اضغط لتحميل الملف</p>
                    
                 </div>
                 <div className="leftList mt-5">
                 <span>اسم المالك</span>
-                    <p>00000000000</p>
+                    <p>{userReq.full_name}</p>
                     <span>رقم الهاتف</span>
-                    <p>00000000000</p>
+                    <p>{userReq.telep2}</p>
                     <span>التاريخ الهجري</span>
-                    <p>00000000000</p>
+                    <p></p>
                     <span>صورة الرقم القومي</span>
-                    <p>00000000000</p>
+                    <p></p>
                     <span>رقم الصك</span>
-                    <p>00000000000</p>
+                    <p>{userReq.installment_number}</p>
                     <span>عدد الأدوار</span>
-                    <p>00000000000</p>
+                    <p>5</p>
                     <span>الرقم القومي</span>
-                    <p>00000000000</p>
+                    <p>{userReq.nationalId}</p>
                     <span>عقود التأجير</span>
-                    <p>00000000000</p>
+                    <p>{userReq.contracts}</p>
                 </div>
             </div>
             <div className="left col-lg-4">
+              <Navbar userData={userData}/>
                 <span>اسم المحافظة</span>
-                <p>الدمام, السعودية</p>
+                <p>{userReq.city}, السعودية</p>
                 <span>اسم الحي</span>
-                <p>الدمام, السعودية</p>
-                <span>اسم المحافظة</span>
-                <p>الدمام, السعودية</p>
+                <p>{userReq.neighborhood}, السعودية</p>
                 <span>اسم المنطقة</span>
-                <p>الدمام, السعودية</p>
+                <p>{userReq.region}, السعودية</p>
                 <span>العنوان التفصيلي</span>
                 <div className="w-100" style={{height:'350px'}}>
                 <GoogleMapReact 
