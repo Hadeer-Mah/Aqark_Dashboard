@@ -49,7 +49,9 @@ const Login = ({saveUserData}) => {
       function validateForm() {
         let scheme = Joi.object({
           email:Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-          password:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+          password:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required().messages({
+            "string.pattern.base":"invalid password pattern, please use(english characters, numbers, symbols)"
+          })
         })
         return scheme.validate(user, {abortEarly:false});
       }
