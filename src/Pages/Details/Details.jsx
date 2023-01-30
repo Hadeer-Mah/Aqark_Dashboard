@@ -48,8 +48,6 @@ const Details = ({userData, logout}) => {
                     <p>{userReq.full_name}</p>
                     <span>رقم الهاتف</span>
                     <p>{userReq.telep2}</p>
-                    <span>التاريخ الهجري</span>
-                    <p></p>
                     <span>صورة الرقم القومي</span>
                     <p></p>
                     <span>رقم الصك</span>
