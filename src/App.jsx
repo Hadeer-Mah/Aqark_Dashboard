@@ -57,7 +57,7 @@ function App() {
           <Route path="new" element={<ProtectedRoute><New logout={logout}/></ProtectedRoute>}/>
           <Route path="list" element={<ProtectedRoute><List logout={logout}/></ProtectedRoute>}/>
           <Route path='home' element={<ProtectedRoute><Home logout={logout} userData={userData}/></ProtectedRoute>}/>
-          <Route path="details" element={<ProtectedRoute><Details userData={userData}/></ProtectedRoute>}/>
+          <Route path="details" element={<ProtectedRoute><Details userData={userData} logout={logout}/></ProtectedRoute>}/>
         </Route>
         <Route path='*' element={<div className='vh-100 w-100 d-flex justify-content-center align-items-center'><h1>NOT FOUND</h1></div>}/>
 

@@ -204,7 +204,7 @@ const Home = ({logout, userData}) => {
           </div>
           <div className="bottom">
             <div className="container">
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between align-items-baseline">
                 <p><MenuOpen/>طلباتي</p>
                 <Link to={'/list'} style={{ color:'gray', marginLeft:'10px'}}>رؤية المزيد</Link>
               </div>

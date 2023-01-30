@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { ReqContext } from '../../contexts/ReqContext';
 
 
-const Details = ({userData}) => {
+const Details = ({userData, logout}) => {
   const {userReq} = useContext(ReqContext);
     const [coordinates, setCoordinates] = useState({})
     const [bounds, setBounds] = useState({});
@@ -17,7 +17,7 @@ const Details = ({userData}) => {
   return (
     <>
     <div className="details d-flex">
-        <Sidebar/>
+        <Sidebar logout={logout}/>
         <div className="detailsContainer d-flex">
           <div className="right d-flex justify-content-between p-5">
                 <div className="rightList">
