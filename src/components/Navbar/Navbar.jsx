@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className="items">
         <div className="item">
             <NotificationsNoneOutlined className='iconNav'/>
-            <div className="counter">1</div>
+            <div className="counter"></div>
           </div>                    
           <div className="item">
             <img src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className='avatar'/>

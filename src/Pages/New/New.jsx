@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar/Navbar'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
+import { AddCircle } from '@mui/icons-material';
 
 
 const New = () => {
@@ -60,27 +61,28 @@ const New = () => {
       <div className="newContainer">
         <Navbar />
         <div className="formContainer">
+            <p style={{marginRight:'20px', fontSize:'30px', marginTop:'30px'}}><AddCircle/>طلب تقييم جديد</p>
             <form onSubmit={submitForm}>
-                <div className='container py-5'>
+                <div className='container pb-5 pt-3'>
                     <div className="row">
                         <div className="col-md-6">
-                            <label htmlFor="full_name">name</label>
+                            <label htmlFor="full_name">اسم المالك بالكامل</label>
                             <input type="text" name="full_name" id="full_name" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-6">
-                            <label htmlFor="telep1">Tele</label>
+                            <label htmlFor="telep1">رقم الهاتف1</label>
                             <input type='tel' name="telep1" id="telep1" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="telep2">tel2</label>
+                            <label htmlFor="telep2">رقم الهاتف 2</label>
                             <input type="tel" name="telep2" id="telep2" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="date1">date</label>
+                            <label htmlFor="date1">التاريخ الميلادي</label>
                             <input type='date' name="date1" id="date1" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="date2">date</label>
+                            <label htmlFor="date2">التاريخ الهجري</label>
                             <input type='date' name="date2" id="date2" className='w-100 form-control'/>
                         </div>
                         <div className="col-md-4">
@@ -180,10 +182,10 @@ const New = () => {
                             <input type='file' name="terms_and_conditions" id="terms_and_conditions" className='w-100 form-control' onChange={getValue}/>
                         </div>
                         <div className="col-md-6">
-                            <button type="submit" className='w-100 bg-black text-white' onSubmit={submitForm}>إرسال الطلب</button>
+                            <button type="submit" className='w-100 btn btn-dark' onSubmit={submitForm}>إرسال الطلب</button>
                         </div>
                         <div className="col-md-6">
-                            <button type='reset' className='w-100 border-0'>إلغاء</button>
+                            <button type='reset' className='w-100 btn btn-light'>إلغاء</button>
                         </div>
                         
                     </div>

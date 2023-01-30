@@ -1,6 +1,6 @@
-import { TrendingDown, TrendingUp } from '@mui/icons-material'
+import { AddCircle, TrendingDown, TrendingUp } from '@mui/icons-material'
 import React from 'react'
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Tooltip, XAxis, YAxis } from 'recharts'
 import Navbar from '../../components/Navbar/Navbar'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import DataTable from '../../components/DataTable/DataTable'
@@ -95,7 +95,7 @@ const Home = () => {
     <div className='home'>
       <Sidebar/>
       <div className="homecontainer d-flex">
-        <div className="sum">
+        <div className="sum d-flex flex-column justify-content-between">
           <div>
             <p>نظرة عامة شهر أكتوبر</p>
             <span>ابقى على إطلاع دائما بما يحدث في النظام</span>
@@ -123,7 +123,23 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div></div>
+          <div>
+            <p>تحليل البيانات</p>
+            <span>جميع الطلبات</span>
+            <p>64318</p>
+            <span>الطلبات القائمة</span>
+            <div class="progress">
+            <div className="progress-bar bg-info" role="progressbar" aria-label="Info example" style={{width: "30%" }}aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <span>الطلبات المعلقة</span>
+            <div class="progress">
+            <div className="progress-bar bg-warning" role="progressbar" aria-label="Warning example" style={{width: "20%" }}aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <span>الطلبات المغلقة</span>
+            <div class="progress">
+            <div className="progress-bar bg-danger" role="progressbar" aria-label="Danger example" style={{width: "40%" }}aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
         </div>
         <div className="visualize">
           <div className="top">
@@ -132,7 +148,10 @@ const Home = () => {
           <div className="container">
           <div className="center d-flex justify-content-center align-items-center row">
             <div className="pie d-flex flex-column justify-content-center col-lg-6">
-              <div className="add p-3 bg-warning mt-5"><Link to={'/new'} style={{textDecoration:'none', color:'white'}}>طلب معاينة جديد</Link></div>
+              <div className="add p-3 mt-5" style={{backgroundColor:'#f8f8f8'}}>
+                <Link to={'/new'} style={{textDecoration:'none', color:'gray'}}><AddCircle/>طلب معاينة جديد</Link>
+                <p style={{fontSize:'11px'}}>يمكنك الاّن طلب تقييم على عقاراتك بكل سهولة وسيقوم خبراءنا في التقييم العقاري بمساعدتك</p>
+              </div>
               <div className="chart">
               <PieChart width={300} height={400}>
       <Pie
@@ -141,7 +160,7 @@ const Home = () => {
         cy={200}
         labelLine={false}
         label={renderCustomizedLabel}
-        outerRadius={80}
+        outerRadius={90}
         fill="#8884d8"
         dataKey="value"
       >

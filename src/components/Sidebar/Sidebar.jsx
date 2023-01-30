@@ -1,4 +1,4 @@
-import { AddAPhotoOutlined, AddCircleOutlineRounded, BarChart, BarChartOutlined, Business, ExitToAppOutlined, Lock, LockClockRounded, Menu, Person, QuestionMark, Settings, SettingsAccessibility } from '@mui/icons-material'
+import {  AddCircleOutlineRounded, BarChartOutlined, Business, ExitToAppOutlined, LockClockRounded, Menu, Person, QuestionMark, Settings } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import React from 'react'
 
@@ -10,9 +10,13 @@ const Sidebar = () => {
     <div className='sidebar d-flex flex-column justify-content-between'>
         <ul className="list">
             <Link to={'/'} style={{textDecoration:'none', color:'white'}}>
-            <li className='listLogo' style={{fontSize:'17px'}}>
+            <li className='listLogo'>
                 <Business className='icon'/>
-                <span>قيم عقارك</span>
+                <div className="d-flex flex-column pt-3">
+                    <p style={{fontSize:'17px', marginBottom:'0'}}>قيم عقارك</p>
+                    <span style={{fontSize:'14px'}}>لتقييم الخدمات العقارية</span>
+
+                </div>
             </li>
             <li>
                 <BarChartOutlined className='icon'/>
