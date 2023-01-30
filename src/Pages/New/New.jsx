@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { ReqContext } from '../../contexts/ReqContext';
 
 
-const New = () => {
+const New = ({logout}) => {
     const {submitFormReq, getValueReq }= useContext(ReqContext);
       const [image, setImage] = useState("");
     const [coordinates, setCoordinates] = useState({})
@@ -22,7 +22,7 @@ const New = () => {
   return (
     <>
      <div className="new">
-      <Sidebar />
+      <Sidebar  logout={logout}/>
       <div className="newContainer">
         <Navbar />
         <div className="formContainer">

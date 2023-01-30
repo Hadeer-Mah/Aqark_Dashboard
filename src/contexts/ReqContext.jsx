@@ -1,7 +1,9 @@
 import React, { createContext, useState } from 'react'
+import { Navigate } from 'react-router';
 
 export const ReqContext = createContext();
 const ReqProvider = ({children}) => {
+    const [userData, setUserData] = useState(null)
     const [userReq, setUserReq] = useState({
         "full_name":"",
       "installment_number": "",
@@ -36,7 +38,7 @@ const ReqProvider = ({children}) => {
           e.preventDefault();
           
       } 
-  return <ReqContext.Provider value={{ userReq, setUserReq, getValueReq, submitFormReq }}>{children}</ReqContext.Provider>;
+  return <ReqContext.Provider value={{ userReq, setUserReq, getValueReq }}>{children}</ReqContext.Provider>;
 }
 
 export default ReqProvider

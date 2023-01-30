@@ -3,11 +3,11 @@ import DataTable from '../../components/DataTable/DataTable'
 import Navbar from '../../components/Navbar/Navbar'
 import Sidebar from '../../components/Sidebar/Sidebar'
 
-const List = () => {
+const List = ({logout}) => {
   return (
     <>
     <div className="tableList d-flex">
-        <Sidebar/>
+        <Sidebar logout={logout}/>
         <div className="tableContainer">
             <Navbar/>
             <DataTable/>

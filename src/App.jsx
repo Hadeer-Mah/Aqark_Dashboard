@@ -54,8 +54,8 @@ function App() {
           <Route index element={<ProtectedRoute><Home logout={logout} userData={userData}/></ProtectedRoute>}/>
           <Route path="register" element={<Register/>}/>
           <Route path="login" element={<Login saveUserData={saveUserData}/>}/>
-          <Route path="new" element={<ProtectedRoute><New/></ProtectedRoute>}/>
-          <Route path="list" element={<ProtectedRoute><List/></ProtectedRoute>}/>
+          <Route path="new" element={<ProtectedRoute><New logout={logout}/></ProtectedRoute>}/>
+          <Route path="list" element={<ProtectedRoute><List logout={logout}/></ProtectedRoute>}/>
           <Route path='home' element={<ProtectedRoute><Home logout={logout} userData={userData}/></ProtectedRoute>}/>
           <Route path="details" element={<ProtectedRoute><Details userData={userData}/></ProtectedRoute>}/>
         </Route>
