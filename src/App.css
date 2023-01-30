@@ -63,6 +63,10 @@ li {
 .visualize {
   flex: 5;
 }
+.chart {
+  height: 75%;
+  transform: translateY(-15%);
+}
 .sumNum {
   display: flex;
   justify-content: space-between;

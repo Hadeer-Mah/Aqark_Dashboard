@@ -161,7 +161,7 @@ const Home = ({logout, userData}) => {
                 <Link to={'/new'} style={{textDecoration:'none', color:'gray'}}><AddCircle/>طلب معاينة جديد</Link>
                 <p style={{fontSize:'11px'}}>يمكنك الاّن طلب تقييم على عقاراتك بكل سهولة وسيقوم خبراءنا في التقييم العقاري بمساعدتك</p>
               </div>
-              <div className="chart">
+              <div className="chart w-50 mx-auto">
               <PieChart width={300} height={400}>
       <Pie
         data={data}
