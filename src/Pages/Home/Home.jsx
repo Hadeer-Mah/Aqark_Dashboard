@@ -1,13 +1,24 @@
 import { AddCircle, MenuOpen, TrendingDown, TrendingUp } from '@mui/icons-material'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Tooltip, XAxis, YAxis } from 'recharts'
 import Navbar from '../../components/Navbar/Navbar'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import DataTable from '../../components/DataTable/DataTable'
 import { Link } from 'react-router-dom'
+import { ReqContext } from '../../contexts/ReqContext'
+import axiosInstance from '../../contexts/axiosInstance'
+import { useMediaQuery } from '@mui/material'
 
 
 const Home = ({logout, userData}) => {
+  const {getData, tableList, showSidebar} = useContext(ReqContext)
+  let homeTable = tableList.slice(0,4)
+  const isDesktop = useMediaQuery('(min-width:1000px)');
+
+
+
+  
+
   
   const data = [
     { name: "Group A", value: 400 },
@@ -89,13 +100,22 @@ const Home = ({logout, userData}) => {
       amt: 2100
     }
   ];
+  useEffect(() => {
+    getData()   
+  }, [])
+  
   
   return (
     <>
     <div className='home'>
-      <Sidebar logout={logout}/>
-      <div className="homecontainer d-flex">
-        <div className="sum d-flex flex-column justify-content-between">
+      {isDesktop?<Sidebar/>:''}
+      {showSidebar? <Sidebar/>:''}
+      <div className={isDesktop? 'homecontainer': 'homecontainer mobile'}>
+        {!isDesktop? <Navbar/> :''}
+      <div className="container">
+        
+        <div className="row d-flex">
+        <div className="sum d-flex flex-column justify-content-around col-lg-4">
           <div>
             <p>نظرة عامة شهر أكتوبر</p>
             <span>ابقى على إطلاع دائما بما يحدث في النظام</span>
@@ -150,13 +170,18 @@ const Home = ({logout, userData}) => {
             </div>
           </div>
         </div>
-        <div className="visualize">
-          <div className="top">
-            <Navbar userData={userData}/>
+        <div className="visualize col-lg-8">
+          {isDesktop? <>
+           <div className="top">
+            <Navbar/>
           </div>
-          <div className="container">
+          </>:''}
+          
+          
+          
           <div className="center d-flex justify-content-center align-items-center row">
-            <div className="pie d-flex flex-column justify-content-center col-lg-6">
+            <div className="pie col-lg-6 d-flex justify-content-center align-items-center">
+              <div>
               <div className="add p-3 mt-5" style={{backgroundColor:'#f8f8f8'}}>
                 <Link to={'/new'} style={{textDecoration:'none', color:'gray'}}><AddCircle/>طلب معاينة جديد</Link>
                 <p style={{fontSize:'11px'}}>يمكنك الاّن طلب تقييم على عقاراتك بكل سهولة وسيقوم خبراءنا في التقييم العقاري بمساعدتك</p>
@@ -179,8 +204,11 @@ const Home = ({logout, userData}) => {
       </Pie>
     </PieChart>
               </div>
+
+              </div>
+              
             </div>
-            <div className="bar col-lg-6">
+            <div className="bar col-lg-6 d-flex justify-content-center align-items-center">
             <BarChart
       width={400}
       height={300}
@@ -201,18 +229,21 @@ const Home = ({logout, userData}) => {
     </BarChart>
             </div>
           </div>
-          </div>
           <div className="bottom">
             <div className="container">
               <div className="d-flex justify-content-between align-items-baseline">
-                <p><MenuOpen/>طلباتي</p>
+                <p><MenuOpen className='ms-2'/>طلباتي</p>
                 <Link to={'/list'} style={{ color:'gray', marginLeft:'10px'}}>رؤية المزيد</Link>
               </div>
-                <DataTable/>
+                <DataTable tableInfo={homeTable}/>
             </div>
           </div>
+        </div> 
+
         </div>
       </div>
+        </div>   
+      
     </div>
     </>
   )

@@ -1,10 +1,18 @@
 import {  AddCircleOutlineRounded, BarChartOutlined, Business, ExitToAppOutlined, LockClockRounded, Menu, Person, QuestionMark, Settings } from '@mui/icons-material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 
 
 
-const Sidebar = ({logout}) => {
+const Sidebar = () => {
+    const navigate = useNavigate();
+    function logoutHandler(){
+        localStorage.removeItem('accesstoken');
+        localStorage.removeItem('removetoken');
+    
+        // setUserData(null);
+         navigate(0)}
+      
   return (
     <>
     <div className='sidebar d-flex flex-column justify-content-between'>
@@ -35,12 +43,10 @@ const Sidebar = ({logout}) => {
                 <span>طلباتي</span>
             </li>
             </Link>
-            <Link to={'/details'} style={{textDecoration:'none', color:'white'}}>
             <li>
                 <Person className='icon'/>
                 <span>الملف الشخصي</span>
             </li>
-            </Link>
             
             <li>
                 <Settings className='icon'/>
@@ -58,10 +64,14 @@ const Sidebar = ({logout}) => {
            
 
         </ul>
-        <p onClick={logout} style={{cursor:'pointer'}}>
+        <div>
+            
+        <p onClick={logoutHandler} style={{cursor:'pointer'}}>
         <ExitToAppOutlined className='icon'/>
         <span>تسجيل الخروج</span>
         </p>
+        </div>
+
     </div>
     </>
   )

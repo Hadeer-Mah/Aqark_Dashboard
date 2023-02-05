@@ -6,13 +6,12 @@ html{
   padding: 0;
   box-sizing: border-box;
 }
-.home {
-  display: flex;
-}
+
 .homecontainer {
-  flex: 8;
-  display: flex;
-  margin-right: 190px;
+  margin-right: 210px !important;
+}
+.homecontainer.mobile, .detailsContainer.mobile, .newContainer.mobile, .tableContainer.mobile {
+  margin-right: 0 !important;
 }
 .sidebar {
   position: fixed;
@@ -21,7 +20,6 @@ html{
   flex-direction: column;
   justify-content: space-between;
   background-color: #12131c;
-  flex: 1;
   min-height: 100vh;
   color: white;
   padding: 35px 3px;
@@ -56,7 +54,7 @@ li {
   }
 
 .sum {
-  flex: 2;
+  flex: 3;
   background-color: #f8f8f8;
   padding: 30px 30px 30px 20px;
 }
@@ -168,8 +166,9 @@ li {
 }
 .newContainer {
   flex: 8;
-  margin-right: 210px;
+  margin-right: 220px;
 }
+.detailsContainer{margin-right: 210px;}
 .table .image {
   width: 32px;
   height: 32px;
@@ -183,26 +182,17 @@ li {
 }
 .Approved {
   color: green;
-  background-color: rgba(0, 128, 0, 0.151);
+  background-color: rgba(0, 128, 0, 0.301);
 }
 .Pending {
   color: goldenrod;
-  background-color: rgba(189, 189, 3, 0.103);
+  background-color: rgba(247, 247, 11, 0.342);
 }
-.tableContainer, .detailsContainer {
+.tableContainer {
   flex: 6;
   margin-right: 195px;
 }
-.right {
-  width: 60%;
-}
-.left {
-  width: 35%;
-  position: fixed;
-  height: 100vh;
-  left: 0;
-  padding: 20px 30px;
-}
+
 .detailsContainer p {
   font-size: 15px;
   font-weight: 500;
@@ -219,9 +209,4 @@ li {
   font-size: 14px;
   color: rgb(95, 92, 92);
   
-}
-@media screen and (min-width: 990px) {
-  body {
-    overflow-x: hidden;
-  }
 }

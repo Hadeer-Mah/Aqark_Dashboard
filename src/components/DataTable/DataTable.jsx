@@ -1,49 +1,31 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { IconButton, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ReqContext } from "../../contexts/ReqContext";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const DataTable = () => {
-    const rows = [
-        {
-          id: 1143155,
-          customer: "Ahmed Sayed",
-          build: "9",
-          city: 'dammam',
-          num: "76767",
-          status: "Approved",
-        },
-        {
-          id: 2235235,
-          customer: "Ayman Mohammmed",
-          build: "3",
-          city: 'dammam',
-          num: "7697",
-          status: "Pending",
-        },
-        {
-          id: 2342353,
-          customer: "Mahmoud Hesham",
-          build: "10",
-          city: 'dammam',
-          num: "55767",
-          status: "Pending",
-        },
-        {
-          id: 2357741,
-          customer: "Mostafa Anwar",
-          build: "6",
-          city: 'dammam',
-          num: "7987",
-          status: "Approved",
-        },
-        {
-          id: 2342355,
-          customer: "Youssef Ahmed",
-          build: "5",
-          city: 'dammam',
-          num: "1234",
-          status: "Pending",
-        },
-      ];
 
+const DataTable = ({tableInfo}) => {
+  const {tableList, setTableList} = useContext(ReqContext)
+    
+  const handleDelete = (id) => {
+    const newList = tableList.filter((item)=>{
+      return item.id !== id;
+    });
+    setTableList(newList);
+  };
+  
+  
+const ITEM_HEIGHT = 48;
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <>
@@ -52,25 +34,75 @@ const DataTable = () => {
         <TableHead>
           <TableRow>
             <TableCell className="tableCell">اسم المالك</TableCell>
-            <TableCell className="tableCell">رقم الصك</TableCell>
-            <TableCell className="tableCell">رقم العقار</TableCell>
-            <TableCell className="tableCell">رقم العميل</TableCell>
+            <TableCell className="tableCell">المدينة</TableCell>
+            <TableCell className="tableCell">المنطقة</TableCell>
+            <TableCell className="tableCell">الحي</TableCell>
             <TableCell className="tableCell">موقع العقار</TableCell>
             <TableCell className="tableCell">حالة الطلب</TableCell>
+            <TableCell className="tableCell text-center">تفاصيل</TableCell>
+            
+
+
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell className="tableCell">{row.customer}</TableCell>
-              <TableCell className="tableCell">{row.id}</TableCell>
-              <TableCell className="tableCell">{row.build}</TableCell>
-              <TableCell className="tableCell">{row.num}</TableCell>
+          {tableInfo?.map((row) => (
+              <TableRow key={row.id}>
+              <TableCell className="tableCell">{row.owner.username}</TableCell>
+              <TableCell className="tableCell">{row.city}</TableCell>
+              <TableCell className="tableCell">{row.region}</TableCell>
+              <TableCell className="tableCell">{row.neighborhood}</TableCell>
               <TableCell className="tableCell">{row.city}</TableCell>
               <TableCell className="tableCell">
-                <span className={`status ${row.status}`}>{row.status}</span>
+                <span className={`status ${row.status == 0? 'Pending':'Approved'}`}>{row.status == 0 ? "معلق": 'مغلق'}</span>
               </TableCell>
+              {/* <TableCell className="tableCell text-center"><button className="btn btn-info"><Link to={`/list/details/${row.id}`} style={{color:'white', textDecoration:'none'}}>Details</Link></button></TableCell>
+              <TableCell className="tableCell text-center"><button className="btn btn-warning"><Link to={`/list/edit/${row.id}`} style={{color:'white', textDecoration:'none'}}>Edit</Link></button></TableCell>
+              <TableCell className="tableCell text-center"><button className="btn btn-danger" onClick={()=>{handleDelete(row.id)}}>Delete</button></TableCell> */}
+
+              <TableCell className="tableCell">
+              <div>
+      <IconButton
+        aria-label="more"
+        id="long-button"
+        aria-controls={open ? 'long-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        MenuListProps={{
+          'aria-labelledby': 'long-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: '10ch',
+            textAlign:'center'
+          },
+        }}
+      >
+          <MenuItem onClick={handleClose}>
+          <Link to={`/list/details/${row.id}`} style={{color:'gray', textDecoration:'none'}}>تفاصيل </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+          <Link to={`/list/edit/${row.id}`} style={{color:'gray', textDecoration:'none'}}>تعديل</Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+          <div onClick={()=>{handleDelete(row.id)}} style={{color:'gray', textDecoration:'none'}}>حذف</div>
+          </MenuItem>
+      </Menu>
+    </div>
+              </TableCell>
+
             </TableRow>
+            
           ))}
         </TableBody>
       </Table>

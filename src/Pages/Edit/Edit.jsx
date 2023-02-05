@@ -1,58 +1,32 @@
+import { AddCircle } from "@mui/icons-material";
 import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import GoogleMapReact from "google-map-react";
-import { AddCircle } from "@mui/icons-material";
 import axiosInstance from "../../contexts/axiosInstance";
-import { useNavigate } from "react-router";
 import { ReqContext } from "../../contexts/ReqContext";
+import GoogleMapReact from "google-map-react";
+import { Navigate, useNavigate, useParams } from "react-router";
+import { object } from "joi";
 import { useMediaQuery } from "@mui/material";
 
-const New = () => {
-const {showSidebar} = useContext(ReqContext)
-const isDesktop = useMediaQuery('(min-width:1000px)');
+const Edit = () => {
+  const { showSidebar } = useContext(ReqContext);
+  const isDesktop = useMediaQuery("(min-width:1000px)");
+  const [coordinates, setCoordinates] = useState({});
+  const [buildImgs, setBuildImgs] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
+  const [licence, setLicence] = useState(null);
+  const [contracts, setContracts] = useState(null);
+  const [installment, setInstallment] = useState(null);
+  const [image, setImage] = useState("");
 
   const navigate = useNavigate();
-  const [image, setImage] = useState("");
-  const [licence, setLicence] = useState(null)
-  const [contracts, setContracts] = useState(null)
-  const [terms, setTerms] = useState(null)
-  const [sketch, setSketch] = useState(null)
-
-  const [buildImgs, setBuildImgs] = useState([]);
-  const [coordinates, setCoordinates] = useState({});
-  const [installment, setInstallment] = useState(null)
   const [bounds, setBounds] = useState({});
-  const [userReq, setUserReq] = useState({
-    installment_number: "",
-    installment_image: "",
-    building_number: "",
+  const { id } = useParams();
+  let { owner } = userDetails;
+  
+  
 
-    construction_licence: "",
-    region: "",
-    city: "",
-    neighborhood: "",
-    address: "",
-    sketch: "",
-    contracts: "",
-    terms_and_conditions: "",
-    others: "",
-    status: 0,
-    latitude: 0,
-    longitude: 0,
-  });
-
-  console.log("user request", userReq);
-  console.log(buildImgs);
-  let getValueReq = (e) => {
-    let myUserReq = { ...userReq };
-    myUserReq[e.target.name] = e.target.value;
-
-    setUserReq(myUserReq);
-   
-    console.log(userReq);
-  };
-  console.log(buildImgs);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -60,69 +34,65 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
       }
     );
   }, []);
-  function handleLicence(e) {
-    setLicence(e.target.files[0])
 
-  }
-  function handleContracts(e) {
+ 
+
+  function getValueReq(e) {
+    setUserDetails({ [e.target.name]: e.target.value });
+
     
-    setContracts(e.target.files[0])
-
-  }
-  function handleInstallment(e) {   
-    setInstallment(e.target.files[0])
-  }
-  function handleTerms(e) {   
-    setTerms(e.target.files[0])
-  }
-  function handleSketch(e) {   
-    setSketch(e.target.files[0])
   }
 
+  function getuserName(e) {
+    setUserDetails({
+      owner: { [e.target.name]: e.target.value },
+    });
 
-  function handleChange(e) {
-    setBuildImgs(e.target.files);
+    
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    let formData = new FormData();
-    Array.from(buildImgs).forEach((item) => {
-      console.log("apppending  image now  ", item);
-      formData.append("building_images", item);
-    });
+    sendData(id);
+  }
 
-    Object.keys(userReq).forEach((userKey) => {
-      formData.append(userKey, userReq[userKey]);
-    });
-
-    formData.append('construction_licence', licence);
-    formData.append('contracts', contracts);
-    formData.append('installment_image', installment);
-    formData.append('sketch', sketch);
-    formData.append('terms_and_conditions', terms);
-
+  async function sendData(id) {
     
-
-
-
-
+   
     try {
-      const { data } = await axiosInstance.post("api/reuqests/", formData);
+      const { data } = await axiosInstance.patch(
+        `api/reuqests/${id}/`,
+        userDetails
+      );
       console.log("success");
       console.log(data);
-      alert('Request Added Successfuly')
-      navigate('/list')
+      alert("User Updated");
+      navigate("/home");
     } catch (err) {
       console.log(err);
     }
   }
+  async function getDetails(id) {
+    try {
+      const { data } = await axiosInstance.get(`api/reuqests/${id}/`);
+
+      console.log("success");
+      console.log(data);
+      setUserDetails(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    getDetails(id);
+  }, []);
 
   return (
     <>
       <div className="new">
-      {isDesktop?<Sidebar/>:''}
-      {showSidebar? <Sidebar/>:''}
-        <div className={isDesktop? 'newContainer': 'newContainer mobile'}>
+        {isDesktop ? <Sidebar /> : ""}
+        {showSidebar ? <Sidebar /> : ""}
+        <div className={isDesktop ? "newContainer" : "newContainer mobile"}>
           <Navbar />
           <div className="formContainer">
             <p
@@ -133,7 +103,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
               }}
             >
               <AddCircle />
-              طلب تقييم جديد
+              تعديل الطلب
             </p>
             <div className="container pb-5 pt-3">
               <form onSubmit={handleSubmit}>
@@ -145,7 +115,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="username"
                       id="username"
                       className="w-100 form-control"
-                      onChange={getValueReq}
+                      value={userDetails?.owner?.username}
+                      onChange={getuserName}
                     />
                   </div>
                   <div className="col-md-5">
@@ -154,6 +125,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       type="tel"
                       name="phone_1"
                       id="telep1"
+                      value={userDetails?.owner?.phone_1}
                       className="w-100 form-control"
                       onChange={getValueReq}
                     />
@@ -164,15 +136,17 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       type="tel"
                       name="phone_2"
                       id="telep2"
+                      value={userDetails?.owner?.phone_2}
                       className="w-100 form-control"
-                      onChange={getValueReq}
+                      onChange={getuserName}
                     />
                   </div>
                   <div className="col-md-3">
                     <label htmlFor="date1">التاريخ الميلادي</label>
                     <input
                       type="date"
-                      name="date1"
+                      name="created"
+                      value={userDetails?.created}
                       id="date1"
                       className="w-100 form-control"
                       onChange={getValueReq}
@@ -183,8 +157,9 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                     <input
                       type="text"
                       className="w-100 form-select form-select-sm"
-                      name="city1"
+                      name="city"
                       id="city1"
+                      value={userDetails.city}
                       onChange={getValueReq}
                     />
                   </div>
@@ -195,8 +170,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="construction_licence"
                       id="construction_licence"
                       className="w-100 form-control"
-                      onChange={handleLicence}
-                      required
+                      files={userDetails?.construction_licence}
+                      // onChange={handleLicence}
                     />
                   </div>
                   <div className="col-md-6">
@@ -216,9 +191,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="nationalImg"
                       id="nationalImg"
                       className="w-100 form-control"
-                      onChange={(e) =>
-                         setImage(e.target.files[0])
-                        }
+                      onChange={(e) => setImage(e.target.files[0])}
                     />
                     <div className="w-25 h-25">
                       <img
@@ -234,6 +207,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       type="number"
                       name="building_number"
                       id="building_number"
+                      value={userDetails?.building_number}
                       className="w-100 form-control"
                       onChange={getValueReq}
                     />
@@ -244,6 +218,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       type="number"
                       name="installment_number"
                       id="installment_number"
+                      value={userDetails?.installment_number}
                       className="w-100 form-control"
                       onChange={getValueReq}
                     />
@@ -255,8 +230,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="installment_image"
                       id="installment_image"
                       className="w-100 form-control"
-                      onChange={handleInstallment}
-                      required
+                      // onChange={handleInstallment}
+                      
                     />
                   </div>
                   <div className="col-md-7">
@@ -266,7 +241,6 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="sketch"
                       id="docFile"
                       className="w-100 form-control"
-                      onChange={handleSketch}
                     />
                   </div>
                   <div className="col-md-9">
@@ -277,10 +251,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       id="building_images"
                       multiple
                       className="w-100 form-control"
-                      onChange={handleChange}
-                      required
+                      // onChange={handleChange}
                     />
-
                     {buildImgs &&
                       Array.from(buildImgs).map((img, index) => {
                         return (
@@ -302,9 +274,9 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       type="text"
                       className="w-100 form-select form-select-sm"
                       name="region"
+                      value={userDetails?.region}
                       id="region"
                       onChange={getValueReq}
-                      required
                     />
                   </div>
                   <div className="col-md-3">
@@ -314,8 +286,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       className="w-100 form-select form-select-sm"
                       name="city"
                       id="city"
+                      value={userDetails?.city}
                       onChange={getValueReq}
-                      required
                     />
                   </div>
                   <div className="col-md-3">
@@ -325,8 +297,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       className="w-100 form-select form-select-sm"
                       name="neighborhood"
                       id="neighborhood"
+                      value={userDetails.neighborhood}
                       onChange={getValueReq}
-                      required
                     />
                   </div>
                   <div className="col-md-9">
@@ -334,6 +306,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                     <input
                       type="text"
                       name="address"
+                      value={userDetails?.address}
                       id="address"
                       onChange={getValueReq}
                       className="form-control"
@@ -371,8 +344,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="contracts"
                       id="contracts"
                       className="w-100 form-control"
-                      onChange={handleContracts}
-                      required
+                      // onChange={handleContracts}
                     />
                   </div>
                   <div className="col-md-5">
@@ -382,7 +354,6 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="sign"
                       id="sign"
                       className="w-100 form-control"
-                      onChange={getValueReq}
                     />
                   </div>
                   <div className="col-md-5">
@@ -394,7 +365,6 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="terms_and_conditions"
                       id="terms_and_conditions"
                       className="w-100 form-control"
-                      onChange={handleTerms}
                     />
                   </div>
                   <div className="col-md-3 mt-3">
@@ -417,4 +387,4 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
   );
 };
 
-export default New;
+export default Edit;

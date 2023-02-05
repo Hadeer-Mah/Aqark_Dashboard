@@ -4,28 +4,22 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import Joi from 'joi';
 import { Cached } from '@mui/icons-material';
+import axiosInstance from '../../contexts/axiosInstance';
+import jwtDecode from 'jwt-decode';
 
-const Login = ({saveUserData}) => {
+const Login = () => {
     const [user, setUser] = useState({
-        'email':'',
+        'username':'',
         'password':''
       })
       const [errorMsg, seterrorMsg] = useState('');
       const [loadBtn, setloadBtn] = useState(false);
-      const [errorList, setErrorList] = useState([])
       let navigate = useNavigate();
       let submitForm=(e)=>{
         e.preventDefault();   
         setloadBtn(true);
-        let validation = validateForm();
-        if (validation.error) {
-          setErrorList(validation.error.details);
-          setloadBtn(false);
-          
-        } else {
-          setErrorList([]);
-            apiCheck();
-        }
+        apiCheck();
+       
       }
       let getValue=(e)=>{
         let myUser={...user};
@@ -33,28 +27,41 @@ const Login = ({saveUserData}) => {
         setUser(myUser);
       }
       async function apiCheck() {
-        let {data} = await axios.post('https://route-movies-api.vercel.app/signin', user);
-        if (data.message === 'success') {
-          localStorage.setItem("token",data.token);
-          saveUserData();
-          setloadBtn(false);
-          seterrorMsg(null);
-          navigate('/home');
+        
+
+        
+try {const {data}= await axiosInstance({
+  url:'api/users/login/',
+  method:'post',
+  data: user 
+}
+)
+setloadBtn(false)
+console.log("login response",data);
+ let encodedAccess = data.access
+ console.log(encodedAccess);
+ let decodedAccess = jwtDecode(encodedAccess);
+ let stringifyAccess = JSON.stringify(decodedAccess)
+ let encodedRefresh = data.refresh
+ let decodedRefresh = jwtDecode(encodedRefresh);
+ let stringifyRefresh = JSON.stringify(decodedRefresh)
+
+ 
+ localStorage.setItem("accesstoken", encodedAccess);
+ localStorage.setItem("refreshtoken", encodedRefresh);
+ navigate('/home')
+}catch(err){
+  seterrorMsg(err.data.message)
+  console.log(err);
+}
+      
+       
           
-        } else {
-          setloadBtn(false);
-          seterrorMsg(data.message);
-        }
+     
       }
-      function validateForm() {
-        let scheme = Joi.object({
-          email:Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-          password:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required().messages({
-            "string.pattern.base":"invalid password pattern, please use(english characters, numbers, symbols)"
-          })
-        })
-        return scheme.validate(user, {abortEarly:false});
-      }
+    
+    
+     
       return (
         <>
         <div className="register bg-dark text-white">
@@ -66,16 +73,15 @@ const Login = ({saveUserData}) => {
                 <h4 className='pb-2'>Log in to Aqark</h4>
                 {errorMsg? <div className="alert alert-danger">{errorMsg}</div>: ''}
                 <div className="mb-2">
-                <input type="email" className={errorList.filter((ele) => ele.context.label=='email')[0]? 'border border-danger form-control':'form-control'} placeholder='Email' name='email' onChange={getValue}/>
-                {errorList.filter((ele) => ele.context.label=='email')[0]?.message}
+                <input type="text" className='form-control' placeholder='user name' name='username' onChange={getValue}/>
+               
                 </div>
                 <div className="mb-2">
-                <input type="password" className={errorList.filter((ele) => ele.context.label=='password')[0]? 'border border-danger form-control':'form-control'} placeholder='Password' name='password' onChange={getValue}/>
-                {errorList.filter((ele) => ele.context.label=='password')[0]?.message}
+                <input type="password" className='form-control' placeholder='Password' name='password' onChange={getValue}/>
                 </div>
                 <button className='w-100 text-white border-0 py-2 rounded-2 bg-danger'> {loadBtn? <Cached/>: 'Login'}</button>
                 <hr/>
-                <Link to='/register' style={{color:"#ef074b"}}>?Forgot Password</Link>
+                <Link to='/request' style={{color:"#ef074b"}}>?Forgot Password</Link>
               <p>Not a member yet? <Link to="/register" style={{color:"#ef074b"}}>Create account</Link></p>
               </div>
               </form>
