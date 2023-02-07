@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance';
 
 export const ReqContext = createContext();
 const ReqProvider = ({children}) => {
-  const [showSidebar, setShowSidebar] = useState(true)
+  const [showSidebar, setShowSidebar] = useState(false)
 
 
   // post data

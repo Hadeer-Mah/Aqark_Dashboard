@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import GoogleMapReact from "google-map-react";
@@ -18,6 +18,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
   const [contracts, setContracts] = useState(null)
   const [terms, setTerms] = useState(null)
   const [sketch, setSketch] = useState(null)
+  const [sign, setSign] = useState(null)
+
 
   const [buildImgs, setBuildImgs] = useState([]);
   const [coordinates, setCoordinates] = useState({});
@@ -60,6 +62,16 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
       }
     );
   }, []);
+   function redActivation(e) {
+    e.currentTarget.classList.add('red');
+    
+  }
+   function greenActivation(e) {
+    e.currentTarget.classList.add('green');
+    
+  }
+
+ 
   function handleLicence(e) {
     setLicence(e.target.files[0])
 
@@ -100,10 +112,8 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
     formData.append('installment_image', installment);
     formData.append('sketch', sketch);
     formData.append('terms_and_conditions', terms);
-
-    
-
-
+    formData.append('identification_image', image);
+    formData.append('sign', sign);
 
 
     try {
@@ -124,11 +134,13 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
       {showSidebar? <Sidebar/>:''}
         <div className={isDesktop? 'newContainer': 'newContainer mobile'}>
           <Navbar />
-          <div className="formContainer">
+          <div className="container">
+            <div className="row">
+            <div className="formContainer col-md-8 order-last order-md-first">
             <p
               style={{
                 marginRight: "20px",
-                fontSize: "30px",
+                fontSize: "20px",
                 marginTop: "30px",
               }}
             >
@@ -138,7 +150,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
             <div className="container pb-5 pt-3">
               <form onSubmit={handleSubmit}>
                 <div className="row">
-                  <div className="col-md-5">
+                  <div className="col-md-8" id="reqInfo">
                     <label htmlFor="username">اسم المالك بالكامل</label>
                     <input
                       type="text"
@@ -146,9 +158,10 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       id="username"
                       className="w-100 form-control"
                       onChange={getValueReq}
+                      required
                     />
                   </div>
-                  <div className="col-md-5">
+                  <div className="col-md-4">
                     <label htmlFor="telep1">رقم الهاتف1</label>
                     <input
                       type="tel"
@@ -156,9 +169,10 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       id="telep1"
                       className="w-100 form-control"
                       onChange={getValueReq}
+                      required
                     />
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-5">
                     <label htmlFor="telep2">رقم الهاتف 2</label>
                     <input
                       type="tel"
@@ -168,17 +182,19 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       onChange={getValueReq}
                     />
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-5">
                     <label htmlFor="date1">التاريخ الميلادي</label>
                     <input
-                      type="date"
-                      name="date1"
+                      type='date'
+                      name="created"
                       id="date1"
                       className="w-100 form-control"
                       onChange={getValueReq}
+                      required
                     />
                   </div>
-                  <div className="col-md-4">
+                  <hr className="my-4"/>
+                  <div className="col-md-4" id="personalInfo">
                     <label htmlFor="city1">بلد الإقامة</label>
                     <input
                       type="text"
@@ -189,6 +205,88 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                     />
                   </div>
                   <div className="col-md-7">
+                    <label htmlFor="nationalId">الرقم القومي</label>
+                    <input
+                      type="number"
+                      name="identification_number"
+                      id="nationalId"
+                      className="w-100 form-control"
+                      onChange={getValueReq}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-9 d-flex">
+                    <div>
+                    <label htmlFor="nationalImg">صورة بطاقة الرقم القومي</label>
+                    <input
+                      type="file"
+                      name="identification_image"
+                      id="nationalImg"
+                      className="w-100 form-control"
+                      onChange={(e) =>
+                         setImage(e.target.files[0])
+                        }
+                        required
+                    />
+                    </div>
+                    
+                    <div className="w-25 h-25 me-4">
+                      <img
+                        className="w-100 rounded-3"
+                        src={image ? URL.createObjectURL(image) : ""}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <hr className="my-4" id="buildInfo"/>
+                  <div className="col-md-6">
+                    <label htmlFor="building_number">رقم العقار</label>
+                    <input
+                      type="number"
+                      name="building_number"
+                      id="building_number"
+                      className="w-100 form-control"
+                      onChange={getValueReq}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="installment_number">رقم الصك</label>
+                    <input
+                      type="number"
+                      name="installment_number"
+                      id="installment_number"
+                      className="w-100 form-control"
+                      onChange={getValueReq}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-9 d-flex" id="files">
+                    <div>
+                      
+                      
+                    <label htmlFor="installment_image">صورةالصك</label>
+                    <input
+                      type="file"
+                      name="installment_image"
+                      id="installment_image"
+                      className="w-100 form-control "
+                      onChange={handleInstallment}
+                      required
+                    />
+
+                    </div>
+                    
+                    <div className="w-25 h-25 me-4">
+                      <img
+                        className="w-100 rounded-3"
+                        src={installment ? URL.createObjectURL(installment) : ""}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-9 d-flex">
+                    <div>
                     <label htmlFor="construction_licence"> صورة الرخصة</label>
                     <input
                       type="file"
@@ -198,67 +296,20 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       onChange={handleLicence}
                       required
                     />
-                  </div>
-                  <div className="col-md-6">
-                    <label htmlFor="nationalId">الرقم القومي</label>
-                    <input
-                      type="number"
-                      name="nationalId"
-                      id="nationalId"
-                      className="w-100 form-control"
-                      onChange={getValueReq}
-                    />
-                  </div>
-                  <div className="col-md-8">
-                    <label htmlFor="nationalImg">صورة بطاقة الرقم القومي</label>
-                    <input
-                      type="file"
-                      name="nationalImg"
-                      id="nationalImg"
-                      className="w-100 form-control"
-                      onChange={(e) =>
-                         setImage(e.target.files[0])
-                        }
-                    />
-                    <div className="w-25 h-25">
+
+                    </div>
+                    
+                    <div className="w-25 h-25 me-4">
                       <img
-                        className="w-100"
-                        src={image ? URL.createObjectURL(image) : ""}
+                        className="w-100 rounded-3"
+                        src={licence ? URL.createObjectURL(licence) : ""}
                         alt=""
                       />
                     </div>
                   </div>
-                  <div className="col-md-5">
-                    <label htmlFor="building_number">رقم العقار</label>
-                    <input
-                      type="number"
-                      name="building_number"
-                      id="building_number"
-                      className="w-100 form-control"
-                      onChange={getValueReq}
-                    />
-                  </div>
-                  <div className="col-md-5">
-                    <label htmlFor="installment_number">رقم الصك</label>
-                    <input
-                      type="number"
-                      name="installment_number"
-                      id="installment_number"
-                      className="w-100 form-control"
-                      onChange={getValueReq}
-                    />
-                  </div>
-                  <div className="col-md-7">
-                    <label htmlFor="installment_image">صورةالصك</label>
-                    <input
-                      type="file"
-                      name="installment_image"
-                      id="installment_image"
-                      className="w-100 form-control"
-                      onChange={handleInstallment}
-                      required
-                    />
-                  </div>
+                  
+                  
+                  
                   <div className="col-md-7">
                     <label htmlFor="docFile">ملف الكروكي</label>
                     <input
@@ -267,6 +318,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       id="docFile"
                       className="w-100 form-control"
                       onChange={handleSketch}
+                      required
                     />
                   </div>
                   <div className="col-md-9">
@@ -296,6 +348,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                         );
                       })}
                   </div>
+                  <hr className="my-4" id="buildSite"/>
                   <div className="col-md-4">
                     <label htmlFor="region">المنطقة</label>
                     <input
@@ -307,7 +360,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       required
                     />
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-4">
                     <label htmlFor="city">المدينة</label>
                     <input
                       type="text"
@@ -318,7 +371,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       required
                     />
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-4">
                     <label htmlFor="neighborhood">الحي</label>
                     <input
                       type="text"
@@ -337,6 +390,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       id="address"
                       onChange={getValueReq}
                       className="form-control"
+                      required
                     />
                   </div>
                   <div
@@ -382,7 +436,9 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       name="sign"
                       id="sign"
                       className="w-100 form-control"
-                      onChange={getValueReq}
+                      onChange={(e) =>
+                        setSign(e.target.files[0])
+                       }
                     />
                   </div>
                   <div className="col-md-5">
@@ -397,7 +453,7 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
                       onChange={handleTerms}
                     />
                   </div>
-                  <div className="col-md-3 mt-3">
+                  <div className="col-md-3 mt-3" id="confirm">
                     <button className="w-100 btn btn-dark" type="submit">
                       إرسال الطلب
                     </button>
@@ -411,6 +467,26 @@ const isDesktop = useMediaQuery('(min-width:1000px)');
               </form>
             </div>
           </div>
+          <div className="col-md-3 pt-4 mt-3">
+            <p className="fw-bold fs-5">خطوات طلب التقديم</p>
+            <div className=" d-flex justify-content-center me-4">
+            <nav className="navmenu ">
+              <ul className="position-relative">
+              <li><a href="#reqInfo"  onClick={greenActivation}>بيانات الطلب</a></li>
+              <li><a href="#personalInfo" onClick={redActivation}>بيانات الهوية</a></li>
+              <li><a href="#buildInfo" onClick={greenActivation}>بيانات العقار الأساسية</a></li>
+              <li><a href="#files" onClick={redActivation}>العقود والملفات</a></li>
+              <li><a href="#buildSite" onClick={greenActivation}>تفاصيل موقع العقار</a></li>
+              <li><a href="#confirm" onClick={redActivation}>إرسال الطلب</a></li>
+
+              </ul>
+            </nav>
+            </div>
+          </div>
+
+            </div>
+          </div>
+          
         </div>
       </div>
     </>

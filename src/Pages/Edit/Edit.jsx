@@ -98,7 +98,7 @@ const Edit = () => {
             <p
               style={{
                 marginRight: "20px",
-                fontSize: "30px",
+                fontSize: "20px",
                 marginTop: "30px",
               }}
             >
@@ -108,6 +108,7 @@ const Edit = () => {
             <div className="container pb-5 pt-3">
               <form onSubmit={handleSubmit}>
                 <div className="row">
+                  <div className="col-lg-9 row">
                   <div className="col-md-5">
                     <label htmlFor="username">اسم المالك بالكامل</label>
                     <input
@@ -376,6 +377,7 @@ const Edit = () => {
                     <button type="reset" className="w-100 btn btn-light">
                       إلغاء
                     </button>
+                  </div>
                   </div>
                 </div>
               </form>

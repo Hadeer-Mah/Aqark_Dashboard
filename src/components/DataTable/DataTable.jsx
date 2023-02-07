@@ -8,6 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 const DataTable = ({tableInfo}) => {
   const {tableList, setTableList} = useContext(ReqContext)
     
+  
   const handleDelete = (id) => {
     const newList = tableList.filter((item)=>{
       return item.id !== id;
@@ -33,13 +34,12 @@ const ITEM_HEIGHT = 48;
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className="tableCell">اسم المالك</TableCell>
-            <TableCell className="tableCell">المدينة</TableCell>
-            <TableCell className="tableCell">المنطقة</TableCell>
-            <TableCell className="tableCell">الحي</TableCell>
-            <TableCell className="tableCell">موقع العقار</TableCell>
-            <TableCell className="tableCell">حالة الطلب</TableCell>
-            <TableCell className="tableCell text-center">تفاصيل</TableCell>
+            <TableCell className="tableCell text-center">اسم المالك</TableCell>
+            <TableCell className="tableCell text-center">رقم الصك</TableCell>
+            <TableCell className="tableCell text-center">رقم العقار</TableCell>
+            <TableCell className="tableCell text-center">التاريخ</TableCell>
+            <TableCell className="tableCell text-center">حالة الطلب</TableCell>
+            <TableCell className="tableCell text-center">خيارات</TableCell>
             
 
 
@@ -48,19 +48,17 @@ const ITEM_HEIGHT = 48;
         <TableBody>
           {tableInfo?.map((row) => (
               <TableRow key={row.id}>
-              <TableCell className="tableCell">{row.owner.username}</TableCell>
-              <TableCell className="tableCell">{row.city}</TableCell>
-              <TableCell className="tableCell">{row.region}</TableCell>
-              <TableCell className="tableCell">{row.neighborhood}</TableCell>
-              <TableCell className="tableCell">{row.city}</TableCell>
-              <TableCell className="tableCell">
-                <span className={`status ${row.status == 0? 'Pending':'Approved'}`}>{row.status == 0 ? "معلق": 'مغلق'}</span>
+              <TableCell className="tableCell text-center">{row.owner.username}</TableCell>
+              <TableCell className="tableCell text-center">{row.installment_number}</TableCell>
+              <TableCell className="tableCell text-center">{row.building_number}</TableCell>
+              <TableCell className="tableCell text-center">{row.created.slice(0,10).split('-').join('/')}</TableCell>
+              <TableCell className="tableCell text-center">
+                <div className="d-flex justify-content-center align-items-center">
+                <span className={`status ${row.status == 0? 'Pending':'Approved'}`}></span><span>{row.status == 0 ? "معلق": 'مغلق'}</span>
+                </div>
               </TableCell>
-              {/* <TableCell className="tableCell text-center"><button className="btn btn-info"><Link to={`/list/details/${row.id}`} style={{color:'white', textDecoration:'none'}}>Details</Link></button></TableCell>
-              <TableCell className="tableCell text-center"><button className="btn btn-warning"><Link to={`/list/edit/${row.id}`} style={{color:'white', textDecoration:'none'}}>Edit</Link></button></TableCell>
-              <TableCell className="tableCell text-center"><button className="btn btn-danger" onClick={()=>{handleDelete(row.id)}}>Delete</button></TableCell> */}
-
-              <TableCell className="tableCell">
+             
+              <TableCell className="tableCell text-center">
               <div>
       <IconButton
         aria-label="more"
@@ -84,7 +82,8 @@ const ITEM_HEIGHT = 48;
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
             width: '10ch',
-            textAlign:'center'
+            display:'flex',
+            justifyContent: 'center'
           },
         }}
       >

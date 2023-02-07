@@ -1,11 +1,10 @@
-import { AddCircle, MenuOpen } from '@mui/icons-material'
+import { AddCircleOutline, MenuOpen } from '@mui/icons-material'
 import { useMediaQuery } from '@mui/material'
 import React, { useContext, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import DataTable from '../../components/DataTable/DataTable'
 import Navbar from '../../components/Navbar/Navbar'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import axiosInstance from '../../contexts/axiosInstance'
 import { ReqContext } from '../../contexts/ReqContext'
 
 const List = () => {
@@ -26,7 +25,12 @@ const List = () => {
             <div className="container">
             <div className='d-flex justify-content-between py-3 align-items-center'>
               <p className='fs-5'><MenuOpen className='me-2'/> طلباتي</p>
-              <div className='px-3 py-1 bg-warning rounded-3'><Link to={'/new'} style={{textDecoration:'none', color:'white'}}><AddCircle/>طلب معاينة جديد</Link></div>
+              <div className='d-flex'>
+              <div className='px-3 py-1 rounded-3' style={{backgroundColor: '#b6eebd'}}><Link to={'/new'} style={{textDecoration:'none', color:'black'}}><AddCircleOutline/>طلب جديد</Link></div>
+              <input type="date" name="created" className='rounded-3 me-2 border px-2' />
+
+              </div>
+              
             </div>
             <DataTable tableInfo={tableList}/>
             </div>
